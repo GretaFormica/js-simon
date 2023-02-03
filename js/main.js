@@ -67,3 +67,31 @@ const titleEl = document.getElementById("title");
 
 
 // countdown
+const countDown = new Date("2023-02-04 9:30 ").getTime();
+
+const clockDown = setInterval(conteggio, 1000);
+
+function conteggio() {
+    const now = new Date().getTime();
+
+    const differenza = countDown - now;
+
+    const days = Math.floor(differenza / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((differenza % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((differenza % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((differenza % (1000 * 60)) / 1000);
+
+    secondsEl.innerHTML = (seconds < 10) ? "0" + seconds : seconds;
+    minutesEl.innerHTML = (minutes < 10) ? "0" + minutes : minutes;
+    hoursEl.innerHTML = (hours < 10) ? "0" + hours : hours;
+    daysEl.innerHTML = (days < 10) ? "0" + days : days;
+
+    if (differenza < 0) {
+        clearInterval(clockDown);
+        confetti({
+            particleCount: 100,
+            spread: 160
+        });
+    }
+
+}
